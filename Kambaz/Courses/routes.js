@@ -27,7 +27,7 @@ export default function CourseRoutes(app, db) {
   const createCourse = (req, res) => {
     const currentUser = req.session["currentUser"];
     const newCourse = dao.createCourse(req.body);
-    enrollmentDao.enrollUserInCourse(currentUser._id, newCourse._id);
+    enrollmentsDao.enrollUserInCourse(currentUser._id, newCourse._id);
     res.json(newCourse);
   };
 
@@ -44,20 +44,9 @@ export default function CourseRoutes(app, db) {
     res.send(status);
   };
 
-  const createModuleForCourse = (req, res) => {
-    const { courseId } = req.params;
-    const module = {
-      ...req.body,
-      course: courseId,
-    };
-    const newModule = dao.createModule(module);
-    res.send(newModule);
-  };
-
   app.get("/api/courses", findAllCourses);
   app.get("/api/users/:userId/courses", findCoursesForEnrolledUser);
   app.post("/api/users/current/courses", createCourse);
   app.delete("/api/courses/:courseId", deleteCourse);
   app.put("/api/courses/:courseId", updateCourse);
-  app.post("/api/courses/:courseId/modules", createModuleForCourse);
 }

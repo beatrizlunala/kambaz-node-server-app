@@ -1,33 +1,51 @@
 import { v4 as uuidv4 } from "uuid";
 
-export function findAssignmentsForCourse(courseId) {
-  return Database.filter((assignment) => assignment.course === courseId);
-}
-
-export function createAssignment(assignment) {
-  const newAssignment = { ...assignment, _id: Date.now().toString() };
-  Database.push(newAssignment);
-  return newAssignment;
-}
-
-export function deleteAssignment(assignmentId) {
-  const index = Database.findIndex(
-    (assignment) => assignment._id === assignmentId
-  );
-  if (index !== -1) {
-    Database.splice(index, 1);
-    return { status: "deleted" };
+export default function AssignmentsDao(db) {
+  function findAssignmentsForCourse(courseId) {
+    const { assignments } = db;
+    return assignments.filter((assignment) => assignment.course === courseId);
   }
-  return { status: "not found" };
-}
 
-export function updateAssignment(assignmentId, assignmentUpdates) {
-  const index = Database.findIndex(
-    (assignment) => assignment._id === assignmentId
-  );
-  if (index !== -1) {
-    Database[index] = { ...Database[index], ...assignmentUpdates };
-    return Database[index];
+  function findAssignmentById(assignmentId) {
+    const { assignments } = db;
+    return assignments.find((assignment) => assignment._id === assignmentId);
   }
-  return null;
+
+  function findAllAssignments() {
+    return db.assignments;
+  }
+
+  function createAssignment(assignment) {
+    const newAssignment = { ...assignment, _id: uuidv4() };
+    db.assignments = [...db.assignments, newAssignment];
+    return newAssignment;
+  }
+
+  function deleteAssignment(assignmentId) {
+    const { assignments } = db;
+    db.assignments = assignments.filter(
+      (assignment) => assignment._id !== assignmentId
+    );
+  }
+
+  function updateAssignment(assignmentId, assignmentUpdates) {
+    const { assignments } = db;
+    const assignment = assignments.find(
+      (assignment) => assignment._id === assignmentId
+    );
+    if (assignment) {
+      Object.assign(assignment, assignmentUpdates);
+      return assignment;
+    }
+    return null;
+  }
+
+  return {
+    findAssignmentsForCourse,
+    findAssignmentById,
+    findAllAssignments,
+    createAssignment,
+    deleteAssignment,
+    updateAssignment,
+  };
 }

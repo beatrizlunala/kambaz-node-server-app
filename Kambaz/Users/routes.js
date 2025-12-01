@@ -42,7 +42,7 @@ export default function UserRoutes(app, db) {
     } else {
       res.status(401).json({ message: "Unable to login. Try again later." });
     }
-    res.json(currentUser);
+    // res.json(currentUser);
   };
 
   const profile = async (req, res) => {

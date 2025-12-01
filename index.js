@@ -14,6 +14,8 @@ import UserRoutes from "./Kambaz/Users/routes.js";
 import "dotenv/config";
 import session from "express-session";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
+import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
+import ModulesRoutes from "./Kambaz/Modules/routes.js";
 
 const app = express();
 
@@ -27,6 +29,12 @@ const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    secure: false, // Set to true in production with HTTPS
+    sameSite: "lax", // Important for cross-origin
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  },
 };
 if (process.env.SERVER_ENV !== "development") {
   sessionOptions.proxy = true;
@@ -50,5 +58,7 @@ WorkingWithArrays(app);
 // A5
 UserRoutes(app, db);
 CourseRoutes(app, db);
+AssignmentRoutes(app, db);
+ModulesRoutes(app, db);
 
 app.listen(process.env.PORT || 4000);
