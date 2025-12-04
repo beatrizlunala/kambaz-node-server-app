@@ -29,12 +29,7 @@ const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    secure: false, // Set to true in production with HTTPS
-    sameSite: "lax", // Important for cross-origin
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
-  },
+  cookie: {},
 };
 if (process.env.SERVER_ENV !== "development") {
   sessionOptions.proxy = true;
