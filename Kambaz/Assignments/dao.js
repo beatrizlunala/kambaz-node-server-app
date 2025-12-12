@@ -20,11 +20,11 @@ export default function AssignmentsDao() {
   }
 
   function deleteAssignment(assignmentId) {
-    model.deleteOne({ _id: assignmentId });
+    return model.deleteOne({ _id: assignmentId });
   }
 
   function updateAssignment(assignmentId, assignmentUpdates) {
-    model.updateOne({ _id: assignmentId }, { $set: assignmentUpdates });
+    return model.updateOne({ _id: assignmentId }, { $set: assignmentUpdates });
   }
 
   return {
