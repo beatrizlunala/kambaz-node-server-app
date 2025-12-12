@@ -21,6 +21,7 @@ import EnrollmentsRoutes from "./Kambaz/Enrollments/routes.js";
 
 // A6
 import mongoose from "mongoose";
+import QuizAttemptsRoutes from "./Kambaz/QuizAttempts/routes.js";
 const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING;
 // || "mongodb+srv://bealunala:webdevfall2025@kambaz.xfmgzsz.mongodb.net/";
 mongoose.connect(CONNECTION_STRING);
@@ -66,5 +67,6 @@ EnrollmentsRoutes(app);
 
 // QUIZZES
 QuizRoutes(app, db);
+QuizAttemptsRoutes(app, db);
 
 app.listen(process.env.PORT || 4000);

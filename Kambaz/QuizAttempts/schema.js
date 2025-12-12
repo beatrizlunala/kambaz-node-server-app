@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-const quizAttemptSchema = new mongoose.Schema(
+const quizAttemptsSchema = new mongoose.Schema(
   {
     quiz: {
       type: mongoose.Schema.Types.ObjectId,
@@ -52,5 +51,4 @@ const quizAttemptSchema = new mongoose.Schema(
   },
   { collection: "quizAttempts" }
 );
-
-export default quizAttemptSchema;
+export default quizAttemptsSchema;
