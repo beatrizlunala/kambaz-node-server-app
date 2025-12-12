@@ -69,7 +69,7 @@ export default function AssignmentRoutes(app, db) {
   app.get("/api/assignments", findAllAssignments);
   app.get("/api/courses/:courseId/assignments", findAssignmentsForCourse);
   app.get("/api/assignments/:assignmentId", findAssignmentById);
-  app.post("/api/assignments", createAssignment);
+  app.post("/api/courses/:courseId/assignments", createAssignment);
   app.delete("/api/assignments/:assignmentId", deleteAssignment);
   app.put("/api/assignments/:assignmentId", updateAssignment);
 }
