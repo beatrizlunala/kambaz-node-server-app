@@ -3,31 +3,45 @@ import ModulesDao from "../Modules/dao.js";
 export default function ModulesRoutes(app, db) {
   const dao = ModulesDao(db);
 
-  const findModulesForCourse = (req, res) => {
-    const { courseId } = req.params;
-    const modules = dao.findModulesForCourse(courseId);
-    res.json(modules);
+  const findModulesForCourse = async (req, res) => {
+    try {
+      const { courseId } = req.params;
+      const modules = await dao.findModulesForCourse(courseId);
+      res.json(modules);
+    } catch (error) {
+      console.error("Error finding modules for course:", error);
+      res.status(500).json({ error: "Failed to retrieve modules" });
+    }
   };
   app.get("/api/courses/:courseId/modules", findModulesForCourse);
 
-  const createModule = (req, res) => {
-    const newModule = dao.createModule(req.body);
-    res.json(newModule);
+  const createModuleForCourse = async (req, res) => {
+    const { courseId } = req.params;
+    const module = {
+      ...req.body,
+      // course: courseId,
+    };
+    const newModule = await dao.createModule(courseId, module);
+    res.send(newModule);
   };
-  app.post("/api/courses/:courseId/modules", createModule);
+  app.post("/api/courses/:courseId/modules", createModuleForCourse);
 
-  const deleteModule = (req, res) => {
-    const { moduleId } = req.params;
-    const status = dao.deleteModule(moduleId);
+  const deleteModule = async (req, res) => {
+    const { courseId, moduleId } = req.params;
+    const status = await ModulesDao.deleteModule(courseId, moduleId);
     res.send(status);
   };
-  app.delete("/api/modules/:moduleId", deleteModule);
+  app.delete("/api/courses/:courseId/modules/:moduleId", deleteModule);
 
   const updateModule = async (req, res) => {
-    const { moduleId } = req.params;
+    const { courseId, moduleId } = req.params;
     const moduleUpdates = req.body;
-    const status = await dao.updateModule(moduleId, moduleUpdates);
+    const status = await ModulesDao.updateModule(
+      courseId,
+      moduleId,
+      moduleUpdates
+    );
     res.send(status);
   };
-  app.put("/api/modules/:moduleId", updateModule);
+  app.put("/api/courses/:courseId/modules/:moduleId", updateModule);
 }

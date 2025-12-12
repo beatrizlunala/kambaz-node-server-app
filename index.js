@@ -16,11 +16,13 @@ import session from "express-session";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import ModulesRoutes from "./Kambaz/Modules/routes.js";
+import QuizRoutes from "./Kambaz/Quizzes/routes.js";
+import EnrollmentsRoutes from "./Kambaz/Enrollments/routes.js";
 
 // A6
 import mongoose from "mongoose";
-const CONNECTION_STRING =
-  process.env.DATABASE_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
+const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING;
+// || "mongodb+srv://bealunala:webdevfall2025@kambaz.xfmgzsz.mongodb.net/";
 mongoose.connect(CONNECTION_STRING);
 
 const app = express();
@@ -35,14 +37,13 @@ const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
   resave: false,
   saveUninitialized: false,
-  cookie: {},
 };
 if (process.env.SERVER_ENV !== "development") {
   sessionOptions.proxy = true;
   sessionOptions.cookie = {
     sameSite: "none",
     secure: true,
-    // domain: process.env.SERVER_URL,
+    domain: process.env.SERVER_URL,
   };
 }
 app.use(session(sessionOptions));
@@ -61,5 +62,9 @@ UserRoutes(app, db);
 CourseRoutes(app, db);
 AssignmentRoutes(app, db);
 ModulesRoutes(app, db);
+EnrollmentsRoutes(app);
+
+// QUIZZES
+QuizRoutes(app, db);
 
 app.listen(process.env.PORT || 4000);

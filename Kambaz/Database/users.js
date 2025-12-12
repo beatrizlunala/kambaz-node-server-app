@@ -12,6 +12,7 @@ export default [
     section: "S101",
     lastActivity: "2020-10-01",
     totalActivity: "10:21:32",
+    courses: ["CS1234"],
   },
   {
     _id: "234",
@@ -26,6 +27,7 @@ export default [
     section: "S101",
     lastActivity: "2020-11-02",
     totalActivity: "15:32:43",
+    courses: ["CS1234"],
   },
   {
     _id: "345",
@@ -40,6 +42,7 @@ export default [
     section: "S101",
     lastActivity: "2020-11-05",
     totalActivity: "13:23:34",
+    courses: [],
   },
   {
     _id: "456",
@@ -54,6 +57,7 @@ export default [
     section: "S101",
     lastActivity: "2020-12-01",
     totalActivity: "11:22:33",
+    courses: [],
   },
   {
     _id: "567",
@@ -68,6 +72,7 @@ export default [
     section: "S101",
     lastActivity: "2020-12-01",
     totalActivity: "22:33:44",
+    courses: [],
   },
   {
     _id: "678",
@@ -82,6 +87,7 @@ export default [
     section: "S101",
     lastActivity: "2020-12-02",
     totalActivity: "44:33:22",
+    courses: [],
   },
   {
     _id: "789",
@@ -96,6 +102,7 @@ export default [
     section: "S101",
     lastActivity: "2020-12-04",
     totalActivity: "12:23:34",
+    courses: [],
   },
   {
     _id: "890",
@@ -110,6 +117,7 @@ export default [
     section: "S101",
     lastActivity: "2020-11-11",
     totalActivity: "21:32:43",
+    courses: [],
   },
   {
     _id: "777",
@@ -124,5 +132,6 @@ export default [
     section: "S101",
     lastActivity: "1852-11-27",
     totalActivity: "21:32:43",
+    courses: [],
   },
 ];

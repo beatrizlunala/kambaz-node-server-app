@@ -20,7 +20,7 @@ export default function UsersDao() {
   const findUsersByRole = (role) => model.find({ role });
 
   const findUsersByPartialName = (partialName) => {
-    const regex = new RegExp(partialName, "i"); // 'i' makes it case-insensitive
+    const regex = new RegExp(partialName, "i"); // 'i' makes it case insensitive
     return model.find({
       $or: [{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }],
     });
