@@ -15,8 +15,7 @@ export default function AssignmentsDao() {
   }
 
   function createAssignment(assignment) {
-    const newAssignment = { ...assignment, _id: uuidv4() };
-    return model.create(newAssignment);
+    return model.create(assignment);
   }
 
   function deleteAssignment(assignmentId) {
