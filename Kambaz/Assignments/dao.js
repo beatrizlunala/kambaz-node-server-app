@@ -3,11 +3,11 @@ import model from "./model.js";
 
 export default function AssignmentsDao() {
   function findAssignmentsForCourse(courseId) {
-    return model.filter((assignment) => assignment.course === courseId);
+    return model.find({ course: courseId });
   }
 
   function findAssignmentById(assignmentId) {
-    return model.find((assignment) => assignment._id === assignmentId);
+    return model.findById(assignmentId);
   }
 
   function findAllAssignments() {
